@@ -1,0 +1,15 @@
+{
+  "name": "El Mundo de Andy&Nano",
+  "short_name": "Andy&Nano",
+  "description": "Un viaje de exploración por el mundo para aprender países, banderas y capitales jugando.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F1A30",
+  "theme_color": "#1B2A4A",
+  "lang": "es",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
