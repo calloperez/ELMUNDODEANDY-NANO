@@ -22,6 +22,8 @@ let nav = ["screen-splash"];   // pila de navegación simple
 let currentCountry = null;
 let currentGameType = null;
 let voices = [];
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
+const SPEECH_RATE = IS_ANDROID ? 0.74 : 0.88;
 
 function loadState(){
   try{
@@ -107,27 +109,62 @@ function pickVoice(lang){
 
   return candidates.slice().sort((a,b)=>score(b)-score(a))[0];
 }
+// Samsung/Chrome puede iniciar el motor de voz pausado o antes de que sus voces
+// estén disponibles. Se despierta con el primer toque, sin emitir sonido extra.
+function primeSpeech(){
+  if(!("speechSynthesis" in window)) return;
+  voices = window.speechSynthesis.getVoices();
+  window.speechSynthesis.resume();
+}
+
 function speak(text, onDone){
   if(!state.sound || !("speechSynthesis" in window)){ if(onDone) onDone(); return; }
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  const v = pickVoice(state.lang);
-  // Si encontramos una voz específica, respetamos su propio idioma exacto
-  // (puede ser es-MX, es-US, en-GB, etc. — mejor que forzar siempre es-ES/en-US).
-  u.lang = v ? v.lang : (state.lang === "es" ? "es-ES" : "en-US");
-  u.rate = 0.88;   // un poco más lento: más cálido y claro para 5 años
-  u.pitch = 1.12;  // un poco más agudo: más juguetón, sin sonar forzado
-  if(v) u.voice = v;
+  const synth = window.speechSynthesis;
+  let completed = false;
+  const finish = ()=>{
+    if(completed) return;
+    completed = true;
+    MusicEngine.unduck();
+    if(onDone) onDone();
+  };
+  const run = (attempt)=>{
+    if(completed) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const v = pickVoice(state.lang);
+    // Si encontramos una voz específica, respetamos su propio idioma exacto.
+    u.lang = v ? v.lang : (state.lang === "es" ? "es-ES" : "en-US");
+    u.rate = SPEECH_RATE; // Android: más lento y fácil de seguir para niños.
+    u.pitch = 1.12;
+    u.volume = 1;
+    if(v) u.voice = v;
+    u.onend = finish;
+    u.onerror = ()=>{
+      // El primer intento puede perderse mientras se inicia el TTS de Android.
+      if(IS_ANDROID && attempt === 0){
+        setTimeout(()=>{
+          if(completed) return;
+          synth.cancel();
+          synth.resume();
+          run(1);
+        }, 120);
+      } else {
+        finish();
+      }
+    };
+    synth.resume();
+    synth.speak(u);
+  };
+  synth.cancel();
+  primeSpeech();
   MusicEngine.duck();
-  const finish = ()=>{ MusicEngine.unduck(); if(onDone) onDone(); };
-  u.onend = finish;
-  u.onerror = finish;
-  window.speechSynthesis.speak(u);
+  run(0);
 }
 if("speechSynthesis" in window){
   const loadVoices = ()=>{ voices = window.speechSynthesis.getVoices(); };
   loadVoices();
   window.speechSynthesis.onvoiceschanged = loadVoices;
+  // pointerdown llega antes que click: se conserva el gesto que Android exige.
+  document.addEventListener("pointerdown", primeSpeech, { passive:true });
 }
 
 // ---------- Progreso ----------
@@ -336,7 +373,7 @@ function narrateCountry(c){
         window._discTimer = setTimeout(()=> revealCountryDetails(c), 400);
       } else {
         i++;
-        window._discTimer = setTimeout(step, 300); // pausa breve y natural entre frases
+        window._discTimer = setTimeout(step, IS_ANDROID ? 650 : 300);
       }
     });
   }
