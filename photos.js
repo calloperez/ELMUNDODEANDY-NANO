@@ -85,7 +85,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/at/landmark.webp", url:null, title_es:"Palacio de Schönbrunn", title_en:"Palacio de Schönbrunn", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/at/animal.webp", url:null, title_es:"marmota alpina", title_en:"marmota alpina", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/at/landmark.webp", url:null, title_es:"Palacio de Schönbrunn", title_en:"Palacio de Schönbrunn", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/at/food.webp", url:null, title_es:"apfelstrudel", title_en:"apfelstrudel", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/at/food.webp", url:null, title_es:"Wiener Schnitzel", title_en:"Wiener Schnitzel", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/at/nature.webp", url:null, title_es:"Alpes austríacos", title_en:"Alpes austríacos", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   az: {
@@ -113,7 +113,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/bd/landmark.webp", url:null, title_es:"Monumento Nacional de Savar", title_en:"Monumento Nacional de Savar", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/bd/animal.webp", url:null, title_es:"tigre de Bengala", title_en:"tigre de Bengala", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/bd/landmark.webp", url:null, title_es:"Monumento Nacional de Savar", title_en:"Monumento Nacional de Savar", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/bd/food.webp", url:null, title_es:"biriyani", title_en:"biriyani", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/bd/food.webp", url:null, title_es:"Curry de pescado bengalí", title_en:"Bengali fish curry", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/bd/nature.webp", url:null, title_es:"delta del Ganges-Brahmaputra", title_en:"delta del Ganges-Brahmaputra", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   bb: {
@@ -225,7 +225,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/kh/landmark.webp", url:null, title_es:"Angkor Wat", title_en:"Angkor Wat", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/kh/animal.webp", url:null, title_es:"elefante asiático", title_en:"elefante asiático", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/kh/landmark.webp", url:null, title_es:"Angkor Wat", title_en:"Angkor Wat", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/kh/food.webp", url:null, title_es:"amok", title_en:"amok", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/kh/food.webp", url:null, title_es:"Sopa de fideos camboyana", title_en:"Cambodian noodle soup", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/kh/nature.webp", url:null, title_es:"selva tropical", title_en:"selva tropical", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   cm: {
@@ -260,7 +260,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/cl/landmark.webp", url:null, title_es:"Torres del Paine", title_en:"Torres del Paine", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/cl/animal.webp", url:null, title_es:"guanaco", title_en:"guanaco", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/cl/landmark.webp", url:null, title_es:"Torres del Paine", title_en:"Torres del Paine", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/cl/food.webp", url:null, title_es:"empanada chilena", title_en:"empanada chilena", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/cl/food.webp", url:null, title_es:"Pastel de choclo", title_en:"Pastel de choclo (Chilean corn pie)", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/cl/nature.webp", url:null, title_es:"desierto de Atacama", title_en:"desierto de Atacama", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   cn: {
@@ -435,7 +435,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/fi/landmark.webp", url:null, title_es:"Fortaleza de Suomenlinna", title_en:"Fortaleza de Suomenlinna", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/fi/animal.webp", url:null, title_es:"reno", title_en:"reno", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/fi/landmark.webp", url:null, title_es:"Fortaleza de Suomenlinna", title_en:"Fortaleza de Suomenlinna", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/fi/food.webp", url:null, title_es:"karjalanpiirakka", title_en:"karjalanpiirakka", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/fi/food.webp", url:null, title_es:"Kalakukko (pastel de pescado)", title_en:"Kalakukko (Finnish fish pie)", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/fi/nature.webp", url:null, title_es:"bosques y lagos", title_en:"bosques y lagos", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   fr: {
@@ -547,7 +547,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/is/landmark.webp", url:null, title_es:"Blue Lagoon", title_en:"Blue Lagoon", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/is/animal.webp", url:null, title_es:"frailecillo atlántico", title_en:"frailecillo atlántico", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/is/landmark.webp", url:null, title_es:"Blue Lagoon", title_en:"Blue Lagoon", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/is/food.webp", url:null, title_es:"skyr", title_en:"skyr", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/is/food.webp", url:null, title_es:"Plokkfiskur (guiso de pescado)", title_en:"Plokkfiskur (Icelandic fish stew)", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/is/nature.webp", url:null, title_es:"cascadas y volcanes", title_en:"cascadas y volcanes", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   in: {
@@ -582,7 +582,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/ie/landmark.webp", url:null, title_es:"Acantilados de Moher", title_en:"Acantilados de Moher", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/ie/animal.webp", url:null, title_es:"ciervo rojo", title_en:"ciervo rojo", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/ie/landmark.webp", url:null, title_es:"Acantilados de Moher", title_en:"Acantilados de Moher", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/ie/food.webp", url:null, title_es:"soda bread", title_en:"soda bread", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/ie/food.webp", url:null, title_es:"Guiso irlandés (Irish stew)", title_en:"Irish stew", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/ie/nature.webp", url:null, title_es:"paisaje verde", title_en:"paisaje verde", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   il: {
@@ -631,7 +631,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/ke/landmark.webp", url:null, title_es:"Reserva Maasai Mara", title_en:"Reserva Maasai Mara", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/ke/animal.webp", url:null, title_es:"jirafa", title_en:"jirafa", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/ke/landmark.webp", url:null, title_es:"Reserva Maasai Mara", title_en:"Reserva Maasai Mara", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/ke/food.webp", url:null, title_es:"nyama choma", title_en:"nyama choma", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/ke/food.webp", url:null, title_es:"Guiso keniano", title_en:"Kenyan stew", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/ke/nature.webp", url:null, title_es:"sabanas africanas", title_en:"sabanas africanas", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   ki: {
@@ -673,7 +673,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/la/landmark.webp", url:null, title_es:"Pha That Luang", title_en:"Pha That Luang", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/la/animal.webp", url:null, title_es:"elefante asiático", title_en:"elefante asiático", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/la/landmark.webp", url:null, title_es:"Pha That Luang", title_en:"Pha That Luang", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/la/food.webp", url:null, title_es:"larb", title_en:"larb", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/la/food.webp", url:null, title_es:"Sopa de fideos laosiana", title_en:"Laotian noodle soup", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/la/nature.webp", url:null, title_es:"río Mekong", title_en:"río Mekong", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   lv: {
@@ -890,7 +890,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/nz/landmark.webp", url:null, title_es:"Milford Sound", title_en:"Milford Sound", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/nz/animal.webp", url:null, title_es:"kiwi", title_en:"kiwi", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/nz/landmark.webp", url:null, title_es:"Milford Sound", title_en:"Milford Sound", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/nz/food.webp", url:null, title_es:"hangi", title_en:"hangi", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/nz/food.webp", url:null, title_es:"Mejillones verdes neozelandeses", title_en:"New Zealand green-lipped mussels", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/nz/nature.webp", url:null, title_es:"Alpes del Sur", title_en:"Alpes del Sur", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   ni: {
@@ -925,7 +925,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/no/landmark.webp", url:null, title_es:"Fiordo de Geiranger", title_en:"Fiordo de Geiranger", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/no/animal.webp", url:null, title_es:"reno", title_en:"reno", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/no/landmark.webp", url:null, title_es:"Fiordo de Geiranger", title_en:"Fiordo de Geiranger", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/no/food.webp", url:null, title_es:"fårikål", title_en:"fårikål", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/no/food.webp", url:null, title_es:"Salmón ahumado noruego", title_en:"Norwegian smoked salmon", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/no/nature.webp", url:null, title_es:"fiordos", title_en:"fiordos", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   om: {
@@ -1016,14 +1016,14 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/ru/landmark.webp", url:null, title_es:"Catedral de San Basilio", title_en:"Catedral de San Basilio", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/ru/animal.webp", url:null, title_es:"oso pardo", title_en:"oso pardo", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/ru/landmark.webp", url:null, title_es:"Catedral de San Basilio", title_en:"Catedral de San Basilio", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/ru/food.webp", url:null, title_es:"pelmeni", title_en:"pelmeni", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/ru/food.webp", url:null, title_es:"Borscht", title_en:"Borscht", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/ru/nature.webp", url:null, title_es:"lago Baikal", title_en:"lago Baikal", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   rw: {
     hero: { path:"assets/countries/rw/landmark.webp", url:null, title_es:"Parque Nacional de los Volcanes", title_en:"Parque Nacional de los Volcanes", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/rw/animal.webp", url:null, title_es:"gorila de montaña", title_en:"gorila de montaña", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/rw/landmark.webp", url:null, title_es:"Parque Nacional de los Volcanes", title_en:"Parque Nacional de los Volcanes", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/rw/food.webp", url:null, title_es:"brochettes", title_en:"brochettes", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/rw/food.webp", url:null, title_es:"Guiso ruandés (frijoles y plátano)", title_en:"Rwandan bean and plantain stew", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/rw/nature.webp", url:null, title_es:"montañas Virunga", title_en:"montañas Virunga", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   kn: {
@@ -1107,7 +1107,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/sg/landmark.webp", url:null, title_es:"Marina Bay Sands", title_en:"Marina Bay Sands", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/sg/animal.webp", url:null, title_es:"nutria de pelo liso", title_en:"nutria de pelo liso", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/sg/landmark.webp", url:null, title_es:"Marina Bay Sands", title_en:"Marina Bay Sands", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/sg/food.webp", url:null, title_es:"chicken rice", title_en:"chicken rice", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/sg/food.webp", url:null, title_es:"Chili crab", title_en:"Chili crab", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/sg/nature.webp", url:null, title_es:"Gardens by the Bay", title_en:"Gardens by the Bay", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   sk: {
@@ -1184,7 +1184,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/se/landmark.webp", url:null, title_es:"Museo Vasa", title_en:"Museo Vasa", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/se/animal.webp", url:null, title_es:"alce", title_en:"alce", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/se/landmark.webp", url:null, title_es:"Museo Vasa", title_en:"Museo Vasa", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/se/food.webp", url:null, title_es:"kanelbulle", title_en:"kanelbulle", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/se/food.webp", url:null, title_es:"Albóndigas suecas (köttbullar)", title_en:"Swedish meatballs (köttbullar)", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/se/nature.webp", url:null, title_es:"archipiélago sueco", title_en:"archipiélago sueco", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   ch: {
@@ -1212,7 +1212,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/tz/landmark.webp", url:null, title_es:"Monte Kilimanjaro", title_en:"Monte Kilimanjaro", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/tz/animal.webp", url:null, title_es:"león africano", title_en:"león africano", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/tz/landmark.webp", url:null, title_es:"Monte Kilimanjaro", title_en:"Monte Kilimanjaro", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/tz/food.webp", url:null, title_es:"nyama choma", title_en:"nyama choma", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/tz/food.webp", url:null, title_es:"Guiso de carne tanzano", title_en:"Tanzanian meat stew", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/tz/nature.webp", url:null, title_es:"Serengeti", title_en:"Serengeti", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   th: {
@@ -1261,7 +1261,7 @@ const COUNTRY_ASSETS = {
     hero: { path:"assets/countries/tr/landmark.webp", url:null, title_es:"Santa Sofía", title_en:"Santa Sofía", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app (reutiliza el asset de landmark)", verified:true },
     animal: { path:"assets/countries/tr/animal.webp", url:null, title_es:"gato van", title_en:"gato van", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     landmark: { path:"assets/countries/tr/landmark.webp", url:null, title_es:"Santa Sofía", title_en:"Santa Sofía", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
-    food: { path:"assets/countries/tr/food.webp", url:null, title_es:"baklava", title_en:"baklava", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
+    food: { path:"assets/countries/tr/food.webp", url:null, title_es:"Kebab turco", title_en:"Turkish kebab", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
     nature: { path:"assets/countries/tr/nature.webp", url:null, title_es:"Capadocia", title_en:"Capadocia", source_type:"AI_GENERATED", source:"Imagen generada por IA para esta app, siguiendo MASTER_VISUAL_STYLE.md", verified:true },
   },
   tm: {

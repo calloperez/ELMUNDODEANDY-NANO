@@ -12,6 +12,7 @@ const APP_SHELL = [
   "./music.js",
   "./illustrations.js",
   "./photos.js",
+  "./sports.js",
   "./manifest.webmanifest",
   "./icon.svg",
 ];

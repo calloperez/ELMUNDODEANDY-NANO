@@ -181,9 +181,28 @@
   #illustrationBox{width:100%; max-width:340px; border-radius:20px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,.35);
     opacity:0; max-height:0; transition:opacity .5s ease, max-height .5s ease, margin .5s ease;}
   #illustrationBox.show{display:block; opacity:1; max-height:280px; margin-bottom:6px; margin-top:8px;}
-  #illustrationBox svg, #illustrationBox img{width:100%; height:auto; display:block; object-fit:cover;}
+  #illustrationBox svg, #illustrationBox img{width:100%; height:100%; display:block; object-fit:cover; object-position:center;}
+  #illustrationBox{aspect-ratio:4/3;}
   #detailPhotoAttribution{font-size:.68rem; opacity:.6; margin-top:4px; text-align:center;}
-  #detailIllustration img{width:100%; border-radius:18px; display:block; object-fit:cover; max-height:220px;}
+  #detailSportExtra{display:none; flex-direction:column; align-items:center; gap:4px; margin-top:2px;}
+  #detailSportExtra.show{display:flex;}
+  #detailSportExtra .shirt-row{display:flex; align-items:center; gap:8px; font-size:1rem; font-weight:700;}
+  #detailSportExtra .shirt-label{font-size:.8rem; opacity:.75; font-weight:600;}
+  .jersey-svg{width:64px; height:64px;}
+  .sport-shirt-container{
+    width:100%; aspect-ratio:1/1; max-width:220px;
+    background:rgba(255,255,255,.06); border-radius:20px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; margin:0 auto;
+  }
+  .sport-shirt-image{
+    width:78%; height:78%;
+    object-fit:contain;
+    object-position:center;
+    display:block;
+  }
+  #detailIllustration img{width:100%; height:100%; border-radius:18px; display:block; object-fit:cover; object-position:center;}
+  #detailIllustration{aspect-ratio:4/3; max-height:260px;}
   .asset-placeholder{
     width:100%; aspect-ratio:4/3; border-radius:18px;
     background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.05));
@@ -650,6 +669,7 @@
       <div id="detailEmoji"></div>
       <div id="detailTitle"></div>
       <div id="detailCategory"></div>
+      <div id="detailSportExtra"></div>
       <div id="detailPhotoAttribution"></div>
     </div>
   </div>
@@ -660,6 +680,7 @@
 <script src="music.js"></script>
 <script src="illustrations.js"></script>
 <script src="photos.js"></script>
+<script src="sports.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

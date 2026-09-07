@@ -323,6 +323,7 @@ function mountAssetImage(containerEl, asset, illustFallback){
   let i = 0;
   const img = document.createElement("img");
   img.alt = "";
+  img.style.objectPosition = asset.objectPosition || "center";
   function tryNext(){
     if(i < candidates.length){
       img.src = candidates[i++];
@@ -353,7 +354,8 @@ function revealCountryDetails(c){
   if(c.animal) items.push({ emoji:c.animal, label:t("animal_lbl"), name:c[`animal_name_${lang}`], asset:getCountryAsset(c.id,"animal"), illust:null, assetType:"animal" });
   if(c.food) items.push({ emoji:c.food, label:t("food_lbl"), name:c[`food_name_${lang}`], asset:getCountryAsset(c.id,"food"), illust:null, assetType:"food" });
   if(c.landmark) items.push({ emoji:c.landmark, label:t("landmark_lbl"), name:c[`landmark_name_${lang}`], asset:landmarkAsset, illust:illust, assetType:"landmark" });
-  if(c.sport) items.push({ emoji:c.sport, label:t("sport_lbl"), name:c[`sport_name_${lang}`], asset:null, illust:null, assetType:null });
+  const sportInfo = typeof getCountrySport === "function" ? getCountrySport(c.id) : null;
+  if(c.sport) items.push({ emoji:c.sport, label:t("sport_lbl"), name: sportInfo ? sportInfo[`sport_name_${lang}`] : null, asset:null, illust:null, assetType:null, sport:sportInfo, countryId:c.id });
   if(c.population != null){
     const popTxt = formatPopulation(c.population, lang);
     items.push({ emoji:"👨‍👩‍👧‍👦", label:t("pop_chip", { pop:popTxt }), name:null, asset:null, illust:null, noModal:true });
@@ -371,11 +373,75 @@ function revealCountryDetails(c){
 }
 
 // ---------- Modal de detalle al tocar un chip ----------
+// ---------- Camiseta genérica (sin escudos ni logos, solo colores) ----------
+function jerseySVG(hex){
+  const primary = (hex && hex[0]) || "#888888";
+  const trim = (hex && hex[1]) || "#FFFFFF";
+  return `<svg class="jersey-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 10 L10 25 L20 40 L30 32 L30 90 L70 90 L70 32 L80 40 L90 25 L70 10 L60 18 Q50 24 40 18 Z" fill="${primary}" stroke="${trim}" stroke-width="3"/>
+    <rect x="30" y="46" width="40" height="8" fill="${trim}"/>
+  </svg>`;
+}
+
+// Camiseta real si existe el asset (object-fit:contain, nunca deforma ni recorta);
+// si no hay archivo local, cae a la camiseta SVG genérica coloreada.
+function mountSportShirt(containerEl, shirtAsset, hexFallback){
+  containerEl.innerHTML = "";
+  const wrap = document.createElement("div");
+  wrap.className = "sport-shirt-container";
+  containerEl.appendChild(wrap);
+  if(shirtAsset && shirtAsset.asset_path){
+    const img = document.createElement("img");
+    img.className = "sport-shirt-image";
+    img.alt = "";
+    img.style.objectPosition = shirtAsset.object_position || "center";
+    img.addEventListener("error", function(){
+      wrap.innerHTML = jerseySVG(hexFallback);
+    }, { once:true });
+    img.src = shirtAsset.asset_path;
+    wrap.appendChild(img);
+  } else {
+    wrap.innerHTML = jerseySVG(hexFallback);
+  }
+}
+
 function openDetailModal(item){
   const modal = document.getElementById("detailModal");
-  const title = item.name || item.label;
   const attrEl = document.getElementById("detailPhotoAttribution");
   const illustrationEl = document.getElementById("detailIllustration");
+  const sportExtraEl = document.getElementById("detailSportExtra");
+  sportExtraEl.classList.remove("show");
+  sportExtraEl.innerHTML = "";
+
+  if(item.assetType === "sport" || item.sport !== undefined){
+    const s = item.sport;
+    const lang = state.lang;
+    if(s){
+      const shirtAsset = typeof getSportShirtAsset === "function" ? getSportShirtAsset(item.countryId) : null;
+      mountSportShirt(illustrationEl, shirtAsset, s.shirt_hex);
+      illustrationEl.classList.add("show");
+      attrEl.textContent = "";
+      document.getElementById("detailEmoji").textContent = "";
+      document.getElementById("detailTitle").textContent = s[`team_${lang}`];
+      document.getElementById("detailCategory").textContent = `${item.emoji} ${s[`sport_name_${lang}`]}`;
+      sportExtraEl.innerHTML = `<span class="shirt-label">👕 ${t("shirt_lbl")}</span><span class="shirt-row">${s[`shirt_colors_${lang}`]}</span>`;
+      sportExtraEl.classList.add("show");
+      modal.classList.add("show");
+      speak(`${s[`sport_name_${lang}`]}. ${s[`team_${lang}`]}. ${t("shirt_lbl")}: ${s[`shirt_colors_${lang}`]}.`);
+    } else {
+      illustrationEl.innerHTML = "";
+      illustrationEl.classList.remove("show");
+      attrEl.textContent = "";
+      document.getElementById("detailEmoji").textContent = item.emoji;
+      document.getElementById("detailTitle").textContent = t("sport_coming_soon");
+      document.getElementById("detailCategory").textContent = item.label;
+      modal.classList.add("show");
+      speak(t("sport_coming_soon"));
+    }
+    return;
+  }
+
+  const title = item.name || item.label;
   document.getElementById("detailEmoji").textContent = (item.illust || item.asset) ? "" : item.emoji;
   if(item.asset){
     item.asset._type = item.assetType;
