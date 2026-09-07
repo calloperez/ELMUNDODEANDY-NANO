@@ -75,19 +75,48 @@ function goBack(){
 }
 
 // ---------- Voz ----------
+// Elige la mejor voz disponible del dispositivo para el idioma pedido,
+// priorizando las variantes de mayor calidad conocidas (en vez de
+// tomar la primera que coincida con el idioma, como antes).
 function pickVoice(lang){
   if(!voices.length) return null;
   const code = lang === "es" ? "es" : "en";
-  return voices.find(v=>v.lang.toLowerCase().startsWith(code)) || null;
+  const candidates = voices.filter(v=>v.lang.toLowerCase().startsWith(code));
+  if(!candidates.length) return null;
+
+  // Nombres que suelen indicar mejor calidad/naturalidad en cada plataforma.
+  const GOOD_HINTS = [
+    "natural", "enhanced", "premium", "neural", "google",
+    // voces de Apple/Siri con buena calidad, en español e inglés
+    "mónica", "monica", "paulina", "juan", "diego",
+    "samantha", "karen", "moira", "tessa", "serena", "daniel",
+  ];
+  // Nombres femeninos comunes en las voces del sistema — se priorizan
+  // levemente porque suelen sonar más cálidas para contenido infantil,
+  // sin que sea una regla estricta.
+  const FEMALE_HINTS = ["female", "mujer", "mónica", "monica", "paulina", "samantha", "karen", "moira", "tessa", "serena", "aria", "sabina", "elvira"];
+
+  function score(v){
+    const n = v.name.toLowerCase();
+    let s = 0;
+    if(GOOD_HINTS.some(h=>n.includes(h))) s += 3;
+    if(FEMALE_HINTS.some(h=>n.includes(h))) s += 1;
+    if(v.localService) s += 1; // las locales suelen andar mejor offline
+    return s;
+  }
+
+  return candidates.slice().sort((a,b)=>score(b)-score(a))[0];
 }
 function speak(text){
   if(!state.sound || !("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = state.lang === "es" ? "es-ES" : "en-US";
-  u.rate = 0.92;
-  u.pitch = 1.05;
   const v = pickVoice(state.lang);
+  // Si encontramos una voz específica, respetamos su propio idioma exacto
+  // (puede ser es-MX, es-US, en-GB, etc. — mejor que forzar siempre es-ES/en-US).
+  u.lang = v ? v.lang : (state.lang === "es" ? "es-ES" : "en-US");
+  u.rate = 0.88;   // un poco más lento: más cálido y claro para 5 años
+  u.pitch = 1.12;  // un poco más agudo: más juguetón, sin sonar forzado
   if(v) u.voice = v;
   MusicEngine.duck();
   u.onend = MusicEngine.unduck;
@@ -278,14 +307,12 @@ function formatPopulation(n, lang){
 }
 function narrateCountry(c){
   const lang = state.lang;
-  const name = c[`name_${lang}`];
-  const cont = CONTINENTS[c.continent][lang];
-  const cap = c[`capital_${lang}`];
-  const fact = c[`fact_${lang}`] || t("coming_soon_fact");
+  const seq = ["intro","location","capital","fact"];
+  const lines = seq.map(type=>{
+    const a = typeof getCountryAudio === "function" ? getCountryAudio(c.id, lang, type) : null;
+    return a && a.text ? a.text : t("coming_soon_fact");
+  });
   const line = document.getElementById("discLine");
-  const lines = lang === "es"
-    ? [`¡Llegamos a ${name}!`, `${name} ${t("is_in")} ${cont}.`, `${t("capital_is")} ${cap}.`, fact]
-    : [`We landed in ${name}!`, `${name} ${t("is_in")} ${cont}.`, `${t("capital_is")} ${cap}.`, fact];
   let i = 0;
   function step(){
     line.textContent = lines[i];
