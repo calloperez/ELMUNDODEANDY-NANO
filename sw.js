@@ -3,9 +3,7 @@
 // (no hay llamadas a servicios externos en tiempo de ejecución,
 // así que no hace falta distinguir por dominio).
 
-// Nueva versión para que las tablets con la PWA instalada descarguen app.js
-// actualizado en vez de seguir sirviendo la copia anterior desde caché.
-const CACHE_NAME = "andynano-cache-v4";
+const CACHE_NAME = "andynano-cache-v5";
 const APP_SHELL = [
   "./",
   "./index.html",

@@ -22,8 +22,6 @@ let nav = ["screen-splash"];   // pila de navegación simple
 let currentCountry = null;
 let currentGameType = null;
 let voices = [];
-const IS_ANDROID = /Android/i.test(navigator.userAgent);
-const SPEECH_RATE = IS_ANDROID ? 0.74 : 0.88;
 
 function loadState(){
   try{
@@ -109,62 +107,66 @@ function pickVoice(lang){
 
   return candidates.slice().sort((a,b)=>score(b)-score(a))[0];
 }
-// Samsung/Chrome puede iniciar el motor de voz pausado o antes de que sus voces
-// estén disponibles. Se despierta con el primer toque, sin emitir sonido extra.
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
+const SPEECH_RATE = IS_ANDROID ? 0.74 : 0.88; // Android más lento; Apple queda exactamente igual que antes
+
+// "Prepara" el motor de voz: en Android/Chrome, si no se toca speechSynthesis
+// tras un gesto reciente del usuario, a veces se queda dormido y la primera
+// frase no se escucha. No reproduce nada, solo lo deja listo.
 function primeSpeech(){
   if(!("speechSynthesis" in window)) return;
-  voices = window.speechSynthesis.getVoices();
-  window.speechSynthesis.resume();
+  window.speechSynthesis.getVoices();
+  try{ window.speechSynthesis.resume(); }catch(e){}
 }
+document.addEventListener("pointerdown", primeSpeech, { passive:true });
 
+let _currentUtterance = null; // referencia persistente: en Android Chrome, si no se guarda,
+                               // el navegador puede "perder" el objeto de voz a mitad de la
+                               // frase y cortarla o acelerarla.
 function speak(text, onDone){
   if(!state.sound || !("speechSynthesis" in window)){ if(onDone) onDone(); return; }
-  const synth = window.speechSynthesis;
-  let completed = false;
-  const finish = ()=>{
-    if(completed) return;
-    completed = true;
+  window.speechSynthesis.cancel();
+  const mySeq = (speak._seq = (speak._seq||0) + 1); // evita ejecutar onDone más de una vez / narraciones viejas colándose
+  let done = false;
+  function finishOnce(){
+    if(done || mySeq !== speak._seq) return;
+    done = true;
     MusicEngine.unduck();
+    _currentUtterance = null;
     if(onDone) onDone();
-  };
-  const run = (attempt)=>{
-    if(completed) return;
+  }
+  function attempt(isRetry){
+    primeSpeech();
+    try{ window.speechSynthesis.resume(); }catch(e){}
     const u = new SpeechSynthesisUtterance(text);
+    _currentUtterance = u; // mantenemos la referencia viva mientras habla
     const v = pickVoice(state.lang);
-    // Si encontramos una voz específica, respetamos su propio idioma exacto.
+    // Si encontramos una voz específica, respetamos su propio idioma exacto
+    // (puede ser es-MX, es-US, en-GB, etc. — mejor que forzar siempre es-ES/en-US).
     u.lang = v ? v.lang : (state.lang === "es" ? "es-ES" : "en-US");
-    u.rate = SPEECH_RATE; // Android: más lento y fácil de seguir para niños.
-    u.pitch = 1.12;
+    u.rate = SPEECH_RATE;
+    u.pitch = 1.12;  // igual en ambas plataformas
     u.volume = 1;
     if(v) u.voice = v;
-    u.onend = finish;
+    MusicEngine.duck();
+    u.onend = finishOnce;
     u.onerror = ()=>{
-      // El primer intento puede perderse mientras se inicia el TTS de Android.
-      if(IS_ANDROID && attempt === 0){
-        setTimeout(()=>{
-          if(completed) return;
-          synth.cancel();
-          synth.resume();
-          run(1);
-        }, 120);
+      if(IS_ANDROID && !isRetry){
+        // Un solo reintento en Android antes de rendirse (nunca rompe la secuencia).
+        try{ window.speechSynthesis.resume(); }catch(e){}
+        setTimeout(()=> attempt(true), 120);
       } else {
-        finish();
+        finishOnce();
       }
     };
-    synth.resume();
-    synth.speak(u);
-  };
-  synth.cancel();
-  primeSpeech();
-  MusicEngine.duck();
-  run(0);
+    window.speechSynthesis.speak(u);
+  }
+  attempt(false);
 }
 if("speechSynthesis" in window){
   const loadVoices = ()=>{ voices = window.speechSynthesis.getVoices(); };
   loadVoices();
   window.speechSynthesis.onvoiceschanged = loadVoices;
-  // pointerdown llega antes que click: se conserva el gesto que Android exige.
-  document.addEventListener("pointerdown", primeSpeech, { passive:true });
 }
 
 // ---------- Progreso ----------
@@ -311,10 +313,46 @@ function refreshMapDiscoveredStates(){
   const unlocked = getUnlockedLevel();
   document.querySelectorAll(".country.known").forEach(p=>{
     const cid = p.getAttribute("data-cid");
+    const isLocked = countryLevel(cid) > unlocked;
     p.classList.toggle("discovered", isDiscovered(cid));
-    p.classList.toggle("locked", countryLevel(cid) > unlocked);
+    p.classList.toggle("locked", isLocked);
+    const flag = document.querySelector(`.country-flag-label[data-cid="${cid}"]`);
+    if(flag) flag.classList.toggle("locked", isLocked);
   });
   updateLevelProgressUI();
+}
+
+// ---------- Banderas sobre el mapa ----------
+// Para que el niño pueda "buscar" un país por su bandera en vez de
+// tener que reconocer la silueta del territorio. Se calcula el centro
+// visual de cada país (con getBBox, sin necesitar reproyectar
+// coordenadas geográficas) y se coloca ahí el emoji de su bandera.
+function addCountryFlagsOnMap(){
+  const svg = document.getElementById("worldmap");
+  if(!svg || svg.dataset.flagsAdded) return;
+  document.querySelectorAll(".country.known").forEach(path=>{
+    const cid = path.getAttribute("data-cid");
+    const c = COUNTRIES.find(x=>x.id === cid);
+    if(!c || !c.flag) return;
+    let box;
+    try{ box = path.getBBox(); }catch(e){ return; }
+    const cx = box.x + box.width/2;
+    const cy = box.y + box.height/2;
+    // Tamaño de fuente proporcional al país (mín/máx para que no quede
+    // gigante en países chicos ni invisible en los grandes).
+    const size = Math.max(4, Math.min(9, Math.sqrt(box.width*box.height)/3));
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", cx);
+    text.setAttribute("y", cy);
+    text.setAttribute("font-size", size);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "central");
+    text.setAttribute("data-cid", cid);
+    text.setAttribute("class", "country-flag-label");
+    text.textContent = c.flag;
+    svg.appendChild(text);
+  });
+  svg.dataset.flagsAdded = "true";
 }
 
 // ---------- Descubrimiento de país ----------
@@ -373,7 +411,7 @@ function narrateCountry(c){
         window._discTimer = setTimeout(()=> revealCountryDetails(c), 400);
       } else {
         i++;
-        window._discTimer = setTimeout(step, IS_ANDROID ? 650 : 300);
+        window._discTimer = setTimeout(step, IS_ANDROID ? 650 : 300); // Android: pausa más cómoda; Apple: igual que antes
       }
     });
   }
@@ -820,4 +858,5 @@ if("serviceWorker" in navigator){
 // ---------- Init ----------
 applyI18n();
 applyAccessibility();
+addCountryFlagsOnMap();
 refreshMapDiscoveredStates();
