@@ -13,6 +13,7 @@ const DEFAULT_STATE = {
   contrast: false,
   bigText: false,
   reduceMotion: false,
+  speechRate: null,  // null = automática según el dispositivo; si no, el valor que elige el usuario en Ajustes
   progress: {},      // { countryId: { flag:0-3, location:0-3, capital:0-3 } }
   sessionVisits: 0,  // países visitados desde que se abrió la app
 };
@@ -148,7 +149,7 @@ function speak(text, onDone){
     // Si encontramos una voz específica, respetamos su propio idioma exacto
     // (puede ser es-MX, es-US, en-GB, etc. — mejor que forzar siempre es-ES/en-US).
     u.lang = v ? v.lang : (state.lang === "es" ? "es-ES" : "en-US");
-    u.rate = SPEECH_RATE;
+    u.rate = (state.speechRate != null) ? state.speechRate : SPEECH_RATE;
     u.pitch = 1.12;  // igual en ambas plataformas
     u.volume = 1;
     if(v) u.voice = v;
@@ -612,7 +613,7 @@ document.getElementById("voicePlayBtn").addEventListener("click", ()=>{
 document.getElementById("voiceMuteBtn").addEventListener("click", ()=>{
   state.sound = !state.sound;
   window.speechSynthesis && window.speechSynthesis.cancel();
-  document.getElementById("voiceMuteBtn").textContent = state.sound ? "🔇" : "🔈";
+  document.getElementById("voiceMuteBtn").textContent = state.sound ? "🔊" : "🔇";
   saveState();
 });
 
@@ -771,7 +772,7 @@ document.getElementById("langToggle").addEventListener("click", ()=>{
   state.lang = state.lang === "es" ? "en" : "es";
   saveState();
   applyI18n();
-  document.getElementById("voiceMuteBtn").textContent = state.sound ? "🔇" : "🔈";
+  document.getElementById("voiceMuteBtn").textContent = state.sound ? "🔊" : "🔇";
 });
 
 // ---------- Modo padres: barrera ----------
@@ -869,6 +870,26 @@ bindToggle("soundToggle", "sound");
 bindToggle("contrastToggle", "contrast");
 bindToggle("bigTextToggle", "bigText");
 bindToggle("reduceMotionToggle", "reduceMotion");
+
+// ---------- Control manual de velocidad de voz ----------
+(function initSpeechRateSlider(){
+  const slider = document.getElementById("speechRateSlider");
+  const valueLabel = document.getElementById("speechRateValue");
+  if(!slider) return;
+  const current = (state.speechRate != null) ? state.speechRate : SPEECH_RATE;
+  slider.value = current;
+  valueLabel.textContent = current.toFixed(2) + "x";
+  slider.addEventListener("input", ()=>{
+    const val = parseFloat(slider.value);
+    state.speechRate = val;
+    valueLabel.textContent = val.toFixed(2) + "x";
+    saveState();
+  });
+  // Al soltar, una frase corta de prueba para que el que ajusta escuche el resultado.
+  slider.addEventListener("change", ()=>{
+    speak(state.lang === "es" ? "Así de rápido voy a hablar" : "This is how fast I'll talk");
+  });
+})();
 
 document.getElementById("resetProgressBtn").addEventListener("click", ()=>{
   if(confirm(state.lang === "es" ? "¿Reiniciar todo el progreso del niño?" : "Reset all of the child's progress?")){
