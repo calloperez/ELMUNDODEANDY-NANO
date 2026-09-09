@@ -120,26 +120,30 @@ function primeSpeech(){
 }
 document.addEventListener("pointerdown", primeSpeech, { passive:true });
 
-let _currentUtterance = null; // referencia persistente: en Android Chrome, si no se guarda,
-                               // el navegador puede "perder" el objeto de voz a mitad de la
-                               // frase y cortarla o acelerarla.
 function speak(text, onDone){
   if(!state.sound || !("speechSynthesis" in window)){ if(onDone) onDone(); return; }
-  window.speechSynthesis.cancel();
-  const mySeq = (speak._seq = (speak._seq||0) + 1); // evita ejecutar onDone más de una vez / narraciones viejas colándose
+  const mySeq = (speak._seq = (speak._seq||0) + 1); // invalida cadenas viejas si se pide una voz nueva antes de tiempo
   let done = false;
   function finishOnce(){
     if(done || mySeq !== speak._seq) return;
     done = true;
+    clearTimeout(safetyTimer);
     MusicEngine.unduck();
-    _currentUtterance = null;
     if(onDone) onDone();
   }
+  // Red de seguridad: si por lo que sea el navegador nunca dispara ni
+  // "onend" ni "onerror" (pasa en algunos Android/WebView), esto igual
+  // hace avanzar la app después de un tiempo generoso — nunca se queda
+  // esperando en silencio para siempre.
+  const safetyMs = Math.max(2500, text.length * 90);
+  const safetyTimer = setTimeout(finishOnce, safetyMs);
+
+  window.speechSynthesis.cancel();
   function attempt(isRetry){
+    if(mySeq !== speak._seq) return; // se pidió otra voz mientras esperábamos
     primeSpeech();
     try{ window.speechSynthesis.resume(); }catch(e){}
     const u = new SpeechSynthesisUtterance(text);
-    _currentUtterance = u; // mantenemos la referencia viva mientras habla
     const v = pickVoice(state.lang);
     // Si encontramos una voz específica, respetamos su propio idioma exacto
     // (puede ser es-MX, es-US, en-GB, etc. — mejor que forzar siempre es-ES/en-US).
@@ -151,17 +155,20 @@ function speak(text, onDone){
     MusicEngine.duck();
     u.onend = finishOnce;
     u.onerror = ()=>{
-      if(IS_ANDROID && !isRetry){
-        // Un solo reintento en Android antes de rendirse (nunca rompe la secuencia).
+      if(!isRetry){
+        // Un solo reintento antes de rendirse (nunca rompe la secuencia).
         try{ window.speechSynthesis.resume(); }catch(e){}
-        setTimeout(()=> attempt(true), 120);
+        setTimeout(()=> attempt(true), 150);
       } else {
         finishOnce();
       }
     };
     window.speechSynthesis.speak(u);
   }
-  attempt(false);
+  // Pausa breve OBLIGATORIA antes de hablar: llamar a speak() en el mismo
+  // instante que cancel() hace que Safari/Chrome descarten la frase nueva
+  // en silencio, o la aceleren. Este es el bug que rompía la voz.
+  setTimeout(()=> attempt(false), 120);
 }
 if("speechSynthesis" in window){
   const loadVoices = ()=>{ voices = window.speechSynthesis.getVoices(); };
@@ -317,7 +324,9 @@ function refreshMapDiscoveredStates(){
     p.classList.toggle("discovered", isDiscovered(cid));
     p.classList.toggle("locked", isLocked);
     const flag = document.querySelector(`.country-flag-label[data-cid="${cid}"]`);
-    if(flag) flag.classList.toggle("locked", isLocked);
+    // La bandera solo se muestra para países ya desbloqueados — mostrar
+    // las 195 de una era lo que generaba el amontonamiento desprolijo.
+    if(flag) flag.classList.toggle("hidden", isLocked);
   });
   updateLevelProgressUI();
 }
@@ -338,13 +347,15 @@ function addCountryFlagsOnMap(){
     try{ box = path.getBBox(); }catch(e){ return; }
     const cx = box.x + box.width/2;
     const cy = box.y + box.height/2;
-    // Tamaño proporcional al país (mín/máx más generosos: se busca que
-    // se vea como una "insignia" prolija, no un texto suelto chiquito).
-    const fontSize = Math.max(6, Math.min(12, Math.sqrt(box.width*box.height)/2.4));
-    const badgeR = fontSize * 0.85;
+    // Tamaño FIJO para todas (no proporcional al país): con 195 países
+    // de tamaños muy distintos, una insignia proporcional generaba un
+    // amontonamiento desprolijo en las zonas con países chicos y juntos
+    // (Europa, Centroamérica). Uniforme se ve mucho más prolijo.
+    const fontSize = 6.5;
+    const badgeR = 6;
 
     const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    group.setAttribute("class", "country-flag-label");
+    group.setAttribute("class", "country-flag-label hidden");
     group.setAttribute("data-cid", cid);
 
     // Insignia circular detrás de la bandera, para que se destaque
