@@ -108,7 +108,7 @@ function pickVoice(lang){
   return candidates.slice().sort((a,b)=>score(b)-score(a))[0];
 }
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
-const SPEECH_RATE = IS_ANDROID ? 0.74 : 0.88; // Android más lento; Apple queda exactamente igual que antes
+const SPEECH_RATE = IS_ANDROID ? 0.72 : 0.80; // más lenta en todos lados; Android sigue un poco más lenta todavía
 
 // "Prepara" el motor de voz: en Android/Chrome, si no se toca speechSynthesis
 // tras un gesto reciente del usuario, a veces se queda dormido y la primera
@@ -338,19 +338,35 @@ function addCountryFlagsOnMap(){
     try{ box = path.getBBox(); }catch(e){ return; }
     const cx = box.x + box.width/2;
     const cy = box.y + box.height/2;
-    // Tamaño de fuente proporcional al país (mín/máx para que no quede
-    // gigante en países chicos ni invisible en los grandes).
-    const size = Math.max(4, Math.min(9, Math.sqrt(box.width*box.height)/3));
+    // Tamaño proporcional al país (mín/máx más generosos: se busca que
+    // se vea como una "insignia" prolija, no un texto suelto chiquito).
+    const fontSize = Math.max(6, Math.min(12, Math.sqrt(box.width*box.height)/2.4));
+    const badgeR = fontSize * 0.85;
+
+    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    group.setAttribute("class", "country-flag-label");
+    group.setAttribute("data-cid", cid);
+
+    // Insignia circular detrás de la bandera, para que se destaque
+    // sobre cualquier color de fondo del país.
+    const badge = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    badge.setAttribute("cx", cx);
+    badge.setAttribute("cy", cy);
+    badge.setAttribute("r", badgeR);
+    badge.setAttribute("class", "flag-badge");
+    group.appendChild(badge);
+
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", cx);
     text.setAttribute("y", cy);
-    text.setAttribute("font-size", size);
+    text.setAttribute("font-size", fontSize);
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "central");
-    text.setAttribute("data-cid", cid);
-    text.setAttribute("class", "country-flag-label");
+    text.setAttribute("class", "flag-emoji");
     text.textContent = c.flag;
-    svg.appendChild(text);
+    group.appendChild(text);
+
+    svg.appendChild(group);
   });
   svg.dataset.flagsAdded = "true";
 }
@@ -540,7 +556,11 @@ function openDetailModal(item){
       sportExtraEl.innerHTML = `<span class="shirt-label">👕 ${t("shirt_lbl")}</span><span class="shirt-row">${s[`shirt_colors_${lang}`]}</span>`;
       sportExtraEl.classList.add("show");
       modal.classList.add("show");
-      speak(`${s[`sport_name_${lang}`]}. ${s[`team_${lang}`]}. ${t("shirt_lbl")}: ${s[`shirt_colors_${lang}`]}.`);
+      speak(s[`sport_name_${lang}`], ()=>{
+        setTimeout(()=> speak(s[`team_${lang}`], ()=>{
+          setTimeout(()=> speak(`${t("shirt_lbl")}: ${s[`shirt_colors_${lang}`]}.`), IS_ANDROID ? 500 : 250);
+        }), IS_ANDROID ? 500 : 250);
+      });
     } else {
       illustrationEl.innerHTML = "";
       illustrationEl.classList.remove("show");
