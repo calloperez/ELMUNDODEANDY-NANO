@@ -3,7 +3,7 @@
 // (no hay llamadas a servicios externos en tiempo de ejecución,
 // así que no hace falta distinguir por dominio).
 
-const CACHE_NAME = "andynano-cache-v8";
+const CACHE_NAME = "andynano-cache-v10";
 const APP_SHELL = [
   "./",
   "./index.html",

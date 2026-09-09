@@ -121,6 +121,10 @@ function primeSpeech(){
 }
 document.addEventListener("pointerdown", primeSpeech, { passive:true });
 
+let _currentUtterance = null; // referencia persistente: sin esto, el navegador (sobre
+                               // todo Chrome de escritorio) puede borrar el objeto de
+                               // voz de la memoria justo antes de reproducirlo — así se
+                               // queda en silencio total sin ningún error.
 function speak(text, onDone){
   if(!state.sound || !("speechSynthesis" in window)){ if(onDone) onDone(); return; }
   const mySeq = (speak._seq = (speak._seq||0) + 1); // invalida cadenas viejas si se pide una voz nueva antes de tiempo
@@ -129,7 +133,9 @@ function speak(text, onDone){
     if(done || mySeq !== speak._seq) return;
     done = true;
     clearTimeout(safetyTimer);
+    clearInterval(watchdogTimer);
     MusicEngine.unduck();
+    _currentUtterance = null;
     if(onDone) onDone();
   }
   // Red de seguridad: si por lo que sea el navegador nunca dispara ni
@@ -138,6 +144,15 @@ function speak(text, onDone){
   // esperando en silencio para siempre.
   const safetyMs = Math.max(2500, text.length * 90);
   const safetyTimer = setTimeout(finishOnce, safetyMs);
+  // Chrome de escritorio tiene otro bug conocido: si la frase habla más de
+  // ~15 segundos, el motor se "pausa" solo a mitad de camino. Este vigía la
+  // reanuda cada 4 segundos mientras esta frase siga activa.
+  const watchdogTimer = setInterval(()=>{
+    if(mySeq !== speak._seq){ clearInterval(watchdogTimer); return; }
+    if(window.speechSynthesis.speaking && window.speechSynthesis.paused){
+      window.speechSynthesis.resume();
+    }
+  }, 4000);
 
   window.speechSynthesis.cancel();
   function attempt(isRetry){
@@ -145,6 +160,7 @@ function speak(text, onDone){
     primeSpeech();
     try{ window.speechSynthesis.resume(); }catch(e){}
     const u = new SpeechSynthesisUtterance(text);
+    _currentUtterance = u; // mantiene viva la referencia mientras habla
     const v = pickVoice(state.lang);
     // Si encontramos una voz específica, respetamos su propio idioma exacto
     // (puede ser es-MX, es-US, en-GB, etc. — mejor que forzar siempre es-ES/en-US).
@@ -780,10 +796,11 @@ let holdTimer = null;
 let gateAnswer = 0;
 const gateBtn = document.getElementById("gateOpenBtn");
 gateBtn.addEventListener("pointerdown", ()=>{
-  holdTimer = setTimeout(openGate, 900);
+  gateBtn.classList.add("holding");
+  holdTimer = setTimeout(()=>{ gateBtn.classList.remove("holding"); openGate(); }, 900);
 });
 ["pointerup","pointerleave","pointercancel"].forEach(evt=>{
-  gateBtn.addEventListener(evt, ()=> clearTimeout(holdTimer));
+  gateBtn.addEventListener(evt, ()=>{ clearTimeout(holdTimer); gateBtn.classList.remove("holding"); });
 });
 function openGate(){
   const a = 2 + Math.floor(Math.random()*6);

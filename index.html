@@ -106,6 +106,8 @@
   }
   #langToggle{font-size:1.6rem;}
   #backBtn{display:none;}
+  @keyframes holdFill{ from{box-shadow:0 0 0 0 rgba(255,201,74,.9);} to{box-shadow:0 0 0 8px rgba(255,201,74,0);} }
+  #gateOpenBtn.holding{ animation:holdFill .9s linear; border-color:var(--sun); }
 
   /* ---------- Splash ---------- */
   #screen-splash .ship{font-size:5rem; animation:float 3s ease-in-out infinite;}
