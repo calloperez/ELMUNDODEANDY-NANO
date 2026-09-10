@@ -156,17 +156,10 @@
     pointer-events:none; /* no interfiere con el toque sobre el país */
     transition:opacity .2s;
   }
-  .country-flag-label .flag-badge{
-    fill:rgba(255,255,255,.92);
-    stroke:rgba(15,20,30,.35);
-    stroke-width:0.6;
-    filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.45));
-  }
   .country-flag-label .flag-emoji{
-    paint-order:stroke;
+    filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));
   }
   .country-flag-label.locked{ opacity:.4; }
-  .country-flag-label.locked .flag-badge{ fill:rgba(255,255,255,.5); }
   .country-flag-label.hidden{ display:none; }
   #mapToast{
     position:absolute; bottom:18px; left:50%; transform:translateX(-50%);

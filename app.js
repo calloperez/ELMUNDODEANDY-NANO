@@ -364,25 +364,16 @@ function addCountryFlagsOnMap(){
     try{ box = path.getBBox(); }catch(e){ return; }
     const cx = box.x + box.width/2;
     const cy = box.y + box.height/2;
-    // Tamaño FIJO para todas (no proporcional al país): con 195 países
-    // de tamaños muy distintos, una insignia proporcional generaba un
-    // amontonamiento desprolijo en las zonas con países chicos y juntos
-    // (Europa, Centroamérica). Uniforme se ve mucho más prolijo.
-    const fontSize = 6.5;
-    const badgeR = 6;
+    // Bandera grande, proporcional al país: la idea es que "pinte" el
+    // territorio y se note de un vistazo, no un logito chico. Con topes
+    // para que ni sea gigante en países enormes (Rusia, Canadá) ni
+    // desborde demasiado en los chicos.
+    const raw = Math.min(box.width, box.height) * 0.85;
+    const fontSize = Math.max(9, Math.min(42, raw));
 
     const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
     group.setAttribute("class", "country-flag-label hidden");
     group.setAttribute("data-cid", cid);
-
-    // Insignia circular detrás de la bandera, para que se destaque
-    // sobre cualquier color de fondo del país.
-    const badge = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    badge.setAttribute("cx", cx);
-    badge.setAttribute("cy", cy);
-    badge.setAttribute("r", badgeR);
-    badge.setAttribute("class", "flag-badge");
-    group.appendChild(badge);
 
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", cx);
