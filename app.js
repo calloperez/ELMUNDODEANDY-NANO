@@ -362,11 +362,24 @@ function buildFlagPatterns(){
   const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
   document.querySelectorAll(".country.known").forEach(path=>{
     const cid = path.getAttribute("data-cid");
+    let box;
+    try{ box = path.getBBox(); }catch(e){ box = {width:20, height:15}; }
+    // Antes el mosaico ocupaba EXACTAMENTE la caja del país (objectBoundingBox),
+    // lo que aplastaba la bandera en países muy alargados (Rusia) o con
+    // territorios separados lejos entre sí (EE.UU.: Alaska+Hawái+continental
+    // dan una caja gigante). Ahora usamos un tamaño de mosaico acotado, basado
+    // en el lado más chico del país — los países grandes/raros repiten la
+    // bandera varias veces en vez de estirarla en una sola tira irreconocible.
+    const tileH = Math.max(11, Math.min(30, Math.min(box.width, box.height) * 0.9));
+    const tileW = tileH * (4/3);
+
     const pattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
     pattern.setAttribute("id", `flag-pattern-${cid}`);
-    pattern.setAttribute("patternUnits", "objectBoundingBox");
-    pattern.setAttribute("width", "1");
-    pattern.setAttribute("height", "1");
+    pattern.setAttribute("patternUnits", "userSpaceOnUse");
+    pattern.setAttribute("x", box.x || 0);
+    pattern.setAttribute("y", box.y || 0);
+    pattern.setAttribute("width", tileW);
+    pattern.setAttribute("height", tileH);
     pattern.setAttribute("viewBox", "0 0 640 480");
     pattern.setAttribute("preserveAspectRatio", "xMidYMid slice");
     const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
