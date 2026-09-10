@@ -152,15 +152,11 @@
     animation:countryPulse .5s ease;
   }
   @keyframes countryPulse{ 0%{transform:scale(1)} 50%{transform:scale(1.25)} 100%{transform:scale(1)} }
-  .country-flag-label{
-    pointer-events:none; /* no interfiere con el toque sobre el país */
-    transition:opacity .2s;
+  .country.known.flag-painted{
+    stroke:rgba(255,255,255,.6);
+    stroke-width:1.2;
+    filter:drop-shadow(0 0 3px rgba(255,255,255,.35));
   }
-  .country-flag-label .flag-emoji{
-    filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));
-  }
-  .country-flag-label.locked{ opacity:.4; }
-  .country-flag-label.hidden{ display:none; }
   #mapToast{
     position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
     background:rgba(0,0,0,.75); color:#fff; padding:10px 18px; border-radius:14px;

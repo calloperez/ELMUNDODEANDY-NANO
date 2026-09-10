@@ -304,14 +304,6 @@ const SPORTS_DATA = {
     shirt_description_es: "Camiseta roja con detalles azules.",
     shirt_description_en: "Red shirt with blue trim.",
   },
-  us: {
-    sport_name_es: "Fútbol", sport_name_en: "Football",
-    team_es: "Selección de Estados Unidos", team_en: "United States National Team",
-    shirt_colors_es: "Blanca y azul", shirt_colors_en: "White and navy blue",
-    shirt_hex: ["#FFFFFF", "#3C3B6E"],
-    shirt_description_es: "Camiseta blanca con detalles azules y rojos.",
-    shirt_description_en: "White shirt with navy blue and red trim.",
-  },
   ca: {
     sport_name_es: "Fútbol", sport_name_en: "Football",
     team_es: "Selección Canadiense", team_en: "Canada National Team",
@@ -360,14 +352,6 @@ const SPORTS_DATA = {
     shirt_description_es: "Camiseta verde con un patrón geométrico blanco, conocida como \"Las Súper Águilas\".",
     shirt_description_en: "Green shirt with a white geometric pattern, known as \"The Super Eagles\".",
   },
-  au: {
-    sport_name_es: "Fútbol", sport_name_en: "Football",
-    team_es: "Selección Australiana", team_en: "Australia National Team",
-    shirt_colors_es: "Dorada y verde", shirt_colors_en: "Gold and green",
-    shirt_hex: ["#FFCD00", "#00843D"],
-    shirt_description_es: "Camiseta dorada con detalles verdes, conocida como \"Socceroos\".",
-    shirt_description_en: "Gold shirt with green trim, known as the \"Socceroos\".",
-  },
   kr: {
     sport_name_es: "Fútbol", sport_name_en: "Football",
     team_es: "Selección de Corea del Sur", team_en: "South Korea National Team",
@@ -415,22 +399,6 @@ const SPORTS_DATA = {
     shirt_hex: ["#FF8200", "#FFFFFF"],
     shirt_description_es: "Camiseta naranja con detalles blancos y verdes, conocida como \"Los Elefantes\".",
     shirt_description_en: "Orange shirt with white and green trim, known as \"The Elephants\".",
-  },
-  eg: {
-    sport_name_es: "Fútbol", sport_name_en: "Football",
-    team_es: "Selección Egipcia", team_en: "Egypt National Team",
-    shirt_colors_es: "Roja", shirt_colors_en: "Red",
-    shirt_hex: ["#CE1126", "#000000"],
-    shirt_description_es: "Camiseta roja con detalles negros, conocida como \"Los Faraones\".",
-    shirt_description_en: "Red shirt with black trim, known as \"The Pharaohs\".",
-  },
-  jp: {
-    sport_name_es: "Fútbol", sport_name_en: "Football",
-    team_es: "Selección Japonesa", team_en: "Japan National Team",
-    shirt_colors_es: "Azul", shirt_colors_en: "Blue",
-    shirt_hex: ["#0033A0", "#FFFFFF"],
-    shirt_description_es: "Camiseta azul, conocida como \"Samurai Blue\", pantalón azul.",
-    shirt_description_en: "Blue shirt, known as \"Samurai Blue\", blue shorts.",
   },
   dz: {
     sport_name_es: "Fútbol", sport_name_en: "Football",

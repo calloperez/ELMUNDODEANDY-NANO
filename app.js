@@ -340,11 +340,8 @@ function refreshMapDiscoveredStates(){
     const isLocked = countryLevel(cid) > unlocked;
     p.classList.toggle("discovered", isDiscovered(cid));
     p.classList.toggle("locked", isLocked);
-    const flag = document.querySelector(`.country-flag-label[data-cid="${cid}"]`);
-    // La bandera solo se muestra para países ya desbloqueados — mostrar
-    // las 195 de una era lo que generaba el amontonamiento desprolijo.
-    if(flag) flag.classList.toggle("hidden", isLocked);
   });
+  updateCountryFlagFills();
   updateLevelProgressUI();
 }
 
@@ -353,41 +350,52 @@ function refreshMapDiscoveredStates(){
 // tener que reconocer la silueta del territorio. Se calcula el centro
 // visual de cada país (con getBBox, sin necesitar reproyectar
 // coordenadas geográficas) y se coloca ahí el emoji de su bandera.
-function addCountryFlagsOnMap(){
+// ---------- Banderas reales pintando el país (al resolver el juego de bandera) ----------
+// Técnica: un <pattern> por país que contiene la imagen real de su bandera,
+// aplicado como fill del propio <path> del país — el país mismo actúa de
+// "recorte", así la bandera queda exactamente con la forma del territorio,
+// sin necesitar posicionar nada a mano. Banderas: set SVG de uso libre
+// (flag-icons, licencia MIT) — ver /assets/flags/LICENSE.
+function buildFlagPatterns(){
   const svg = document.getElementById("worldmap");
-  if(!svg || svg.dataset.flagsAdded) return;
+  if(!svg || svg.dataset.patternsBuilt) return;
+  const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
   document.querySelectorAll(".country.known").forEach(path=>{
     const cid = path.getAttribute("data-cid");
-    const c = COUNTRIES.find(x=>x.id === cid);
-    if(!c || !c.flag) return;
-    let box;
-    try{ box = path.getBBox(); }catch(e){ return; }
-    const cx = box.x + box.width/2;
-    const cy = box.y + box.height/2;
-    // Bandera grande, proporcional al país: la idea es que "pinte" el
-    // territorio y se note de un vistazo, no un logito chico. Con topes
-    // para que ni sea gigante en países enormes (Rusia, Canadá) ni
-    // desborde demasiado en los chicos.
-    const raw = Math.min(box.width, box.height) * 0.85;
-    const fontSize = Math.max(9, Math.min(42, raw));
-
-    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    group.setAttribute("class", "country-flag-label hidden");
-    group.setAttribute("data-cid", cid);
-
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    text.setAttribute("x", cx);
-    text.setAttribute("y", cy);
-    text.setAttribute("font-size", fontSize);
-    text.setAttribute("text-anchor", "middle");
-    text.setAttribute("dominant-baseline", "central");
-    text.setAttribute("class", "flag-emoji");
-    text.textContent = c.flag;
-    group.appendChild(text);
-
-    svg.appendChild(group);
+    const pattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+    pattern.setAttribute("id", `flag-pattern-${cid}`);
+    pattern.setAttribute("patternUnits", "objectBoundingBox");
+    pattern.setAttribute("width", "1");
+    pattern.setAttribute("height", "1");
+    pattern.setAttribute("viewBox", "0 0 640 480");
+    pattern.setAttribute("preserveAspectRatio", "xMidYMid slice");
+    const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    image.setAttributeNS("http://www.w3.org/1999/xlink", "href", `assets/flags/${cid}.svg`);
+    image.setAttribute("href", `assets/flags/${cid}.svg`);
+    image.setAttribute("width", "640");
+    image.setAttribute("height", "480");
+    pattern.appendChild(image);
+    defs.appendChild(pattern);
   });
-  svg.dataset.flagsAdded = "true";
+  svg.insertBefore(defs, svg.firstChild);
+  svg.dataset.patternsBuilt = "true";
+}
+
+// Pinta con la bandera real solo los países cuyo juego de "encontrar la
+// bandera" ya se resolvió correctamente al menos una vez — es un premio
+// visual, no algo que aparece antes de jugar.
+function updateCountryFlagFills(){
+  document.querySelectorAll(".country.known").forEach(path=>{
+    const cid = path.getAttribute("data-cid");
+    const solved = state.progress[cid] && state.progress[cid].flag > 0;
+    if(solved){
+      path.style.fill = `url(#flag-pattern-${cid})`;
+      path.classList.add("flag-painted");
+    } else {
+      path.style.fill = "";
+      path.classList.remove("flag-painted");
+    }
+  });
 }
 
 // ---------- Descubrimiento de país ----------
@@ -918,5 +926,6 @@ if("serviceWorker" in navigator){
 // ---------- Init ----------
 applyI18n();
 applyAccessibility();
-addCountryFlagsOnMap();
+buildFlagPatterns();
+updateCountryFlagFills();
 refreshMapDiscoveredStates();

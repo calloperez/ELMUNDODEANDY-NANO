@@ -418,8 +418,8 @@ const AUDIO_DATA = {
     en: { intro:"Our next stop is Liberia!", location:"This country is located in Africa.", capital:"The most important city is called Monrovia.", fact:"It has beaches and tropical rainforests!", celebration:"Excellent!", animal:null, food:null, sport:null },
   },
   ly: {
-    es: { intro:"¡Mira dónde hemos llegado! Estamos en Libia.", location:"Estamos en África, ¡en el país llamado Libia!", capital:"¿Sabías que la capital es Tripoli?", fact:"¡Tiene ruinas antiguas junto al mar Mediterráneo!", celebration:"¡Qué gran explorador!", animal:null, food:null, sport:null },
-    en: { intro:"Look where we've landed! We're in Libya.", location:"We're in Africa, in the country called Libya!", capital:"Did you know the capital is Tripoli?", fact:"It has ancient ruins by the Mediterranean Sea!", celebration:"What a great explorer!", animal:null, food:null, sport:null },
+    es: { intro:"¡Mira dónde hemos llegado! Estamos en Libia.", location:"Estamos en África, ¡en el país llamado Libia!", capital:"¿Sabías que la capital es Tripoli?", fact:"¡Tiene las ruinas romanas de Leptis Magna!", celebration:"¡Qué gran explorador!", animal:null, food:null, sport:null },
+    en: { intro:"Look where we've landed! We're in Libya.", location:"We're in Africa, in the country called Libya!", capital:"Did you know the capital is Tripoli?", fact:"It has the Roman ruins of Leptis Magna!", celebration:"What a great explorer!", animal:null, food:null, sport:null },
   },
   lc: {
     es: { intro:"¡Vamos a descubrir Santa Lucía juntos!", location:"Santa Lucía está en América.", capital:"Su capital es Castries.", fact:"¡Tiene dos montañas gemelas que salen del mar!", celebration:"¡Otro país conquistado!", animal:null, food:null, sport:null },
@@ -470,8 +470,8 @@ const AUDIO_DATA = {
     en: { intro:"Look where we've landed! We're in Maldives.", location:"We're in Asia, in the country called Maldives!", capital:"Did you know the capital is Malé?", fact:"It's more than a thousand tiny islands in the Indian Ocean!", celebration:"You did it!", animal:null, food:null, sport:null },
   },
   mx: {
-    es: { intro:"¡Vamos a descubrir México juntos!", location:"México está en América.", capital:"Su capital es Mexico City.", fact:"¡Tiene pirámides antiguas gigantes!", celebration:"¡Sos un explorador increíble!", animal:"¡Y mira ese animal! Es un Ajolote. ¿Podés decirlo conmigo? ¡Ajolote!", food:"¡Qué rico! En México se come Taco.", sport:"¡México juega al Fútbol! Su selección usa los colores Verde." },
-    en: { intro:"Let's discover Mexico together!", location:"Mexico is in America.", capital:"Its capital is Mexico City.", fact:"It has giant ancient pyramids!", celebration:"You're an amazing explorer!", animal:"And look at that animal! It's a Axolotl. Can you say it with me?", food:"Yum! In Mexico, people eat Taco.", sport:"Mexico plays Football! Their national team wears Green." },
+    es: { intro:"¡Vamos a descubrir México juntos!", location:"México está en América.", capital:"Su capital es Mexico City.", fact:"¡Ahí se inventó el chocolate!", celebration:"¡Sos un explorador increíble!", animal:"¡Y mira ese animal! Es un Ajolote. ¿Podés decirlo conmigo? ¡Ajolote!", food:"¡Qué rico! En México se come Taco.", sport:"¡México juega al Fútbol! Su selección usa los colores Verde." },
+    en: { intro:"Let's discover Mexico together!", location:"Mexico is in America.", capital:"Its capital is Mexico City.", fact:"Chocolate was invented there!", celebration:"You're an amazing explorer!", animal:"And look at that animal! It's a Axolotl. Can you say it with me?", food:"Yum! In Mexico, people eat Taco.", sport:"Mexico plays Football! Their national team wears Green." },
   },
   mh: {
     es: { intro:"¡Abre bien los ojos! Llegamos a Islas Marshall.", location:"Este país queda en Oceanía.", capital:"La ciudad más importante se llama Majuro.", fact:"¡Son islas de coral que forman anillos en el mar!", celebration:"¡Lo descubriste!", animal:null, food:null, sport:null },
@@ -530,8 +530,8 @@ const AUDIO_DATA = {
     en: { intro:"We have a new adventure in Niger!", location:"We're in Africa, in the country called Niger!", capital:"Did you know the capital is Niamey?", fact:"It has a giant desert with very tall dunes!", celebration:"Fantastic!", animal:null, food:null, sport:null },
   },
   ng: {
-    es: { intro:"¡Prepárate para viajar! Hoy vamos a Nigeria.", location:"Nigeria está en África.", capital:"Su capital es Abuja.", fact:"¡Tiene selvas tropicales llenas de animales!", celebration:"¡Lo lograste!", animal:null, food:null, sport:"¡Nigeria juega al Fútbol! Su selección usa los colores Verde con estampado de rayos." },
-    en: { intro:"Get ready to travel! Today we're going to Nigeria.", location:"Nigeria is in Africa.", capital:"Its capital is Abuja.", fact:"It has tropical rainforests full of animals!", celebration:"You did it!", animal:null, food:null, sport:"Nigeria plays Football! Their national team wears Green with a lightning pattern." },
+    es: { intro:"¡Prepárate para viajar! Hoy vamos a Nigeria.", location:"Nigeria está en África.", capital:"Su capital es Abuja.", fact:"¡Es el país más poblado de África!", celebration:"¡Lo lograste!", animal:null, food:null, sport:"¡Nigeria juega al Fútbol! Su selección usa los colores Verde con estampado de rayos." },
+    en: { intro:"Get ready to travel! Today we're going to Nigeria.", location:"Nigeria is in Africa.", capital:"Its capital is Abuja.", fact:"It's the most populated country in Africa!", celebration:"You did it!", animal:null, food:null, sport:"Nigeria plays Football! Their national team wears Green with a lightning pattern." },
   },
   ni: {
     es: { intro:"¡Nuestro próximo destino es Nicaragua!", location:"Este país queda en América.", capital:"La ciudad más importante se llama Managua.", fact:"¡Tiene un lago gigante con tiburones de agua dulce!", celebration:"¡Sos un explorador increíble!", animal:null, food:null, sport:null },
@@ -667,7 +667,7 @@ const AUDIO_DATA = {
   },
   sr: {
     es: { intro:"¡Abre bien los ojos! Llegamos a Surinam.", location:"Este país queda en América.", capital:"La ciudad más importante se llama Paramaribo.", fact:"¡Tiene selvas tropicales muy bien conservadas!", celebration:"¡Lo descubriste!", animal:null, food:null, sport:null },
-    en: { intro:"Open your eyes wide! We've arrived in Suriname.", location:"This country is located in America.", capital:"The most important city is called Paramaribo.", fact:"It has very well-preserved tropical rainforests!", celebration:"You discovered it!", animal:null, food:null, sport:null },
+    en: { intro:"Open your eyes wide! We've arrived in Suriname.", location:"This country is located in America.", capital:"The most important city is called Paramaribo.", fact:"It has one of the most forested territories in the world!", celebration:"You discovered it!", animal:null, food:null, sport:null },
   },
   sk: {
     es: { intro:"¡Tenemos una nueva aventura en Eslovaquia!", location:"Estamos en Europa, ¡en el país llamado Eslovaquia!", capital:"¿Sabías que la capital es Bratislava?", fact:"¡Tiene muchísimos castillos en las montañas!", celebration:"¡Excelente!", animal:null, food:null, sport:null },
@@ -726,8 +726,8 @@ const AUDIO_DATA = {
     en: { intro:"Get ready to travel! Today we're going to Trinidad and Tobago.", location:"Trinidad and Tobago is in America.", capital:"Its capital is Port of Spain.", fact:"That's where steel drum music called steelpan was invented!", celebration:"You did it!", animal:null, food:null, sport:null },
   },
   tn: {
-    es: { intro:"¡Nuestro próximo destino es Túnez!", location:"Este país queda en África.", capital:"La ciudad más importante se llama Tunis.", fact:"¡Tiene ruinas antiguas junto al mar Mediterráneo!", celebration:"¡Sos un explorador increíble!", animal:null, food:null, sport:"¡Túnez juega al Fútbol! Su selección usa los colores Roja." },
-    en: { intro:"Our next stop is Tunisia!", location:"This country is located in Africa.", capital:"The most important city is called Tunis.", fact:"It has ancient ruins by the Mediterranean Sea!", celebration:"You're an amazing explorer!", animal:null, food:null, sport:"Tunisia plays Football! Their national team wears Red." },
+    es: { intro:"¡Nuestro próximo destino es Túnez!", location:"Este país queda en África.", capital:"La ciudad más importante se llama Tunis.", fact:"¡Ahí estaba la antigua ciudad de Cartago!", celebration:"¡Sos un explorador increíble!", animal:null, food:null, sport:"¡Túnez juega al Fútbol! Su selección usa los colores Roja." },
+    en: { intro:"Our next stop is Tunisia!", location:"This country is located in Africa.", capital:"The most important city is called Tunis.", fact:"The ancient city of Carthage was there!", celebration:"You're an amazing explorer!", animal:null, food:null, sport:"Tunisia plays Football! Their national team wears Red." },
   },
   tr: {
     es: { intro:"¡Mira dónde hemos llegado! Estamos en Turquía.", location:"Estamos en Asia, ¡en el país llamado Turquía!", capital:"¿Sabías que la capital es Ankara?", fact:"¡Tiene un mercado gigante con miles de tiendas!", celebration:"¡Lo descubriste!", animal:null, food:null, sport:"¡Turquía juega al Fútbol! Su selección usa los colores Roja y blanca." },
