@@ -370,8 +370,8 @@ function buildFlagPatterns(){
     pattern.setAttribute("viewBox", "0 0 640 480");
     pattern.setAttribute("preserveAspectRatio", "xMidYMid slice");
     const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-    image.setAttributeNS("http://www.w3.org/1999/xlink", "href", `assets/flags/${cid}.svg`);
-    image.setAttribute("href", `assets/flags/${cid}.svg`);
+    image.setAttributeNS("http://www.w3.org/1999/xlink", "href", `assets/flags/${cid}.webp`);
+    image.setAttribute("href", `assets/flags/${cid}.webp`);
     image.setAttribute("width", "640");
     image.setAttribute("height", "480");
     pattern.appendChild(image);
@@ -387,7 +387,10 @@ function buildFlagPatterns(){
 function updateCountryFlagFills(){
   document.querySelectorAll(".country.known").forEach(path=>{
     const cid = path.getAttribute("data-cid");
-    const solved = state.progress[cid] && state.progress[cid].flag > 0;
+    // Se pinta con la bandera real apenas el país queda descubierto (con
+    // cualquiera de los dos juegos) — no hace falta que haya sido
+    // específicamente el de "encontrar la bandera".
+    const solved = isDiscovered(cid);
     if(solved){
       path.style.fill = `url(#flag-pattern-${cid})`;
       path.classList.add("flag-painted");
